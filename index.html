@@ -3,9 +3,12 @@
 <head>
     <h1>Employees form</h1>
     <link rel="stylesheet" href="./style.css">
+    <script src="./index.js"></script>
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<form>
+<p id="errorMessage"></p>
+<form id="dataForm">
     <label for="fname">First name:</label><br>
     <input type="text" id="fname" name="fname" placeholder="ex:John" required><br> 
 
@@ -13,7 +16,7 @@
     <input type="text" id="lname" name="lname" placeholder="ex:Doe" required><br>
 
     <label for="email">Email:</label><br>
-    <input type="text" id="email" name="lname" placeholder="ex:john@doe.com" required><br><br>
+    <input type="text" id="email" name="email" placeholder="ex:john@doe.com" required><br><br>
 
     <label for="sex">Sex:</label>
         <select name="sex" id="sex" required>
@@ -32,19 +35,25 @@
     <label for="img">Select image:</label>
     <input type="file" id="img" name="img" accept="image/*" required>
     
-    <input type="submit" value="Submit">
-    <br><br><br>
-    <table>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Sex</th>
-          <th>Date of birth</th>
-          <th>Profile picture</th>
-        </tr>
-    </table>
+    <input type="submit" value="Submit" id="submit">
+    
       
 </form>
+<br><br><br>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Sex</th>
+                <th>Date of birth</th>
+                <th>Profile picture</th>
+              </tr>  
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
 </body>
 </html>
