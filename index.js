@@ -40,7 +40,14 @@ window.addEventListener('DOMContentLoaded', function(){
             console.log("Table doesent contain body")
             return;
         }
+        let button = document.createElement('button');
+        row.appendChild(button)
+        button.onclick = function() {removeRow(row);};
         tableNode.children[1].appendChild(row);
+    }
+    
+    function removeRow(row){
+        row.remove();
     }
 
     dataForm.addEventListener('submit', (e) => {
