@@ -4,7 +4,6 @@
     <h1>Employees form</h1>
     <link rel="stylesheet" href="./style.css">
     <script src="./index.js"></script>
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <p id="errorMessage"></p>
@@ -29,11 +28,14 @@
     <label for="dateOfBirth">Date of birth:</label>
 
     <input type="date" id="dateOfBirth" name="birthdate"
-        value="2021-04-23"
+        value="2002-04-23"
         min="1990-01-01" max="2003-01-01" required>
-
+    <br>
     <label for="img">Select image:</label>
+
     <input type="file" id="img" name="img" accept="image/*" required>
+    <br>
+    <br>
     
     <input type="submit" value="Submit" id="submit">
     
@@ -49,6 +51,7 @@
                 <th>Sex</th>
                 <th>Date of birth</th>
                 <th>Profile picture</th>
+                <!-- <th>Delete</th> -->
               </tr>  
         </thead>
         <tbody>
