@@ -2,8 +2,22 @@ window.addEventListener('DOMContentLoaded', function(){
 
     const dataForm = document.getElementById('dataForm');
     const dataTable = document.getElementById('dataTable');
+    const searchBar = document.getElementById('searchBar');
     const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-    
+    let employees = [];
+
+    searchBar.addEventListener('keyup', (e) => {
+        const searchString = e.target.value.toLowerCase();
+        const filteredEmployees = employees.filter(employee => {
+            return employee.fname.toLowerCase().startsWith(searchString) || employee.lname.toLowerCase().startsWith(searchString);
+        })
+        console.log(filteredEmployees)
+        dataTable.children[1].innerHTML="";
+        for(i =0 ; i<filteredEmployees.length;i++)
+            appendDataToTable(dataTable,filteredEmployees[i]);
+
+    })
+
     function appendDataToTable(tableNode, data) {
         console.log(data)
         const row = document.createElement('tr');
@@ -43,6 +57,7 @@ window.addEventListener('DOMContentLoaded', function(){
         let button = document.createElement('button');
         row.appendChild(button)
         button.onclick = function() {removeRow(row);};
+
         tableNode.children[1].appendChild(row);
     }
     
@@ -65,6 +80,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 }  
             }
             appendDataToTable(dataTable, data);
+            employees = [...employees,data];
         }
     })
 })
