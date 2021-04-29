@@ -13,9 +13,6 @@ window.addEventListener('DOMContentLoaded', function(){
             url: 'https://localhost:5001/employee/Employee',
             success: function (data) {
                 console.log(data)
-                data.forEach(d => {
-                    delete d["id"];
-                });
                 employeesList = data;
                 loadEmployees(employeesList);
             },
@@ -53,11 +50,20 @@ window.addEventListener('DOMContentLoaded', function(){
             data: JSON.stringify(newEmployee),
             url: 'https://localhost:5001/employee/Employee',
             success: function (data) {
-                delete data["id"];
                 appendDataToTable(dataTable,data);
             },
             error: function (data) {
             alert(`Failed to load employees list.`);
+            },
+        });
+    }
+
+    function removeEmployeeFromDb(id){
+        $.ajax({
+            method: "DELETE",
+            url: `https://localhost:5001/employee/Employee/${id}`,
+            error: function (data) {
+                alert(`Failed to remove`);
             },
         });
     }
@@ -88,7 +94,9 @@ window.addEventListener('DOMContentLoaded', function(){
 
         for(const key in data){
             const cell = document.createElement('td');
-
+            if(key === "id"){
+                continue;
+            }
             if (key === "img") {
                 const img = document.createElement('img');
                 
@@ -120,13 +128,12 @@ window.addEventListener('DOMContentLoaded', function(){
         }
         let button = document.createElement('button');
         row.appendChild(button)
-        button.onclick = function() {removeRow(row);};
+        button.onclick = function() {
+            row.remove();
+            removeEmployeeFromDb(data.id)
+        };
 
         tableNode.children[1].appendChild(row);
-    }
-    
-    function removeRow(row){
-        row.remove();
     }
 
     dataForm.addEventListener('submit', (e) => {
