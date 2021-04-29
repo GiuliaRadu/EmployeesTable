@@ -53,17 +53,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 appendDataToTable(dataTable,data);
             },
             error: function (data) {
-            alert(`Failed to load employees list.`);
-            },
-        });
-    }
-
-    function removeEmployeeFromDb(id){
-        $.ajax({
-            method: "DELETE",
-            url: `https://localhost:5001/employee/Employee/${id}`,
-            error: function (data) {
-                alert(`Failed to remove`);
+            alert(`Failed to add employee to list.`);
             },
         });
     }
@@ -134,6 +124,17 @@ window.addEventListener('DOMContentLoaded', function(){
         };
 
         tableNode.children[1].appendChild(row);
+    }
+
+    
+    function removeEmployeeFromDb(id){
+        $.ajax({
+            method: "DELETE",
+            url: `https://localhost:5001/employee/Employee/${id}`,
+            error: function (data) {
+                alert(`Failed to remove employee from list`);
+            },
+        });
     }
 
     dataForm.addEventListener('submit', (e) => {
