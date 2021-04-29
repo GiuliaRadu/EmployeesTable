@@ -13,6 +13,9 @@ window.addEventListener('DOMContentLoaded', function(){
             url: 'https://localhost:5001/employee/Employee',
             success: function (data) {
                 console.log(data)
+                data.forEach(d => {
+                    delete d["id"];
+                });
                 employeesList = data;
                 loadEmployees(employeesList);
             },
@@ -22,9 +25,47 @@ window.addEventListener('DOMContentLoaded', function(){
         });
     });
 
+    function validateInput(newEmployee){
+        
+        if (!newEmployee.FirstName || !newEmployee.LastName || !newEmployee.Email || !newEmployee.Picture) {
+            return false;
+        }
+        return true;
+    }
+            
+    function addEmployee() {
+        var newEmployee = new Object();
+        newEmployee.Id = 0;
+        newEmployee.FirstName = document.getElementById('fname').value;
+        newEmployee.LastName = document.getElementById('lname').value;
+        newEmployee.Email = document.getElementById('email').value;
+        newEmployee.Picture = "pic";
+        if (!validateInput(newEmployee)) {
+            alert("You need to fill all the information!");
+            console.log(newEmployee.picture)
+            return;
+        }
+        newEmployee.Gender = document.getElementById('sex').value;
+        newEmployee.Birthdate = document.getElementById('dateOfBirth').value;
+        $.ajax({
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(newEmployee),
+            url: 'https://localhost:5001/employee/Employee',
+            success: function (data) {
+                delete data["id"];
+                appendDataToTable(dataTable,data);
+            },
+            error: function (data) {
+            alert(`Failed to load employees list.`);
+            },
+        });
+    }
+
     function loadEmployees(employeesList){
         for (index = 0; index < employeesList.length; index++)
         { 
+            console.log(employeesList[index])
             appendDataToTable(dataTable,employeesList[index])
         }
     }
@@ -102,7 +143,8 @@ window.addEventListener('DOMContentLoaded', function(){
                     data[name] = value;  
                 }  
             }
-            appendDataToTable(dataTable, data);
+            // appendDataToTable(dataTable, data);
+            addEmployee();
             employees = [...employees,data];
         }
     })
