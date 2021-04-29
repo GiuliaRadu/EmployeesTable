@@ -5,6 +5,29 @@ window.addEventListener('DOMContentLoaded', function(){
     const searchBar = document.getElementById('searchBar');
     const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
     let employees = [];
+    var employeesList=[];
+
+    jQuery(document).ready(function ($) {
+        $.ajax({
+            method: "GET",
+            url: 'https://localhost:5001/employee/Employee',
+            success: function (data) {
+                console.log(data)
+                employeesList = data;
+                loadEmployees(employeesList);
+            },
+            error: function (data) {
+            alert(`Failed to load employees list.`);
+            },
+        });
+    });
+
+    function loadEmployees(employeesList){
+        for (index = 0; index < employeesList.length; index++)
+        { 
+            appendDataToTable(dataTable,employeesList[index])
+        }
+    }
 
     searchBar.addEventListener('keyup', (e) => {
         const searchString = e.target.value.toLowerCase();
