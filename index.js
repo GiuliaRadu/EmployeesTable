@@ -81,7 +81,6 @@ window.addEventListener('DOMContentLoaded', function(){
     })
 
     function appendDataToTable(tableNode, data) {
-        console.log(data)
         const row = document.createElement('tr');
 
         for(const key in data){
@@ -93,23 +92,25 @@ window.addEventListener('DOMContentLoaded', function(){
                 const img = document.createElement('img');
                 
             }
-            if(key == "birthdate"){
-                const date= data[key];
-                const splittedDate = date.split("-")
-                const year = splittedDate[0];
-                const month = splittedDate[1];
-                const day = splittedDate[2].split("T")[0];
-                console.log(day)
-                var finalDate="";
+            if(key === "birthdate"){
+                cell.innerText = data[key].split("T")[0];
+            }
+            // if(key == "birthdate"){
+            //     const date= data[key];
+            //     const splittedDate = date.split("-")
+            //     const year = splittedDate[0];
+            //     const month = splittedDate[1];
+            //     const day = splittedDate[2].split("T")[0];
+            //     var finalDate="";
 
-                if(month.startsWith("0"))
-                {
-                    monthWithoutZero = month.substring(1); 
-                    finalDate=day + " " + months[monthWithoutZero-1]+ " " + year;
-                }
-                finalDate = day + " " + months[month-1] + " " + year;   
-                cell.innerText = finalDate;
-            }   
+            //     if(month.startsWith("0"))
+            //     {
+            //         monthWithoutZero = month.substring(1); 
+            //         finalDate=day + " " + months[monthWithoutZero-1]+ " " + year;
+            //     }
+            //     finalDate = day + " " + months[month-1] + " " + year;   
+            //     cell.innerText = finalDate;
+            // }   
             else{
                 cell.innerText = data[key];
             }            
@@ -176,10 +177,8 @@ window.addEventListener('DOMContentLoaded', function(){
             rows = dataTable.rows;
             for (index = 1; index < (rows.length - 1); index++) {
                 shouldSwitch = false;
-                x = new Date(rows[index].getElementsByTagName("td")[5].innerText);
-                console.log(x)
-                y = new Date(rows[index + 1].getElementsByTagName("td")[5].innerText);
-                console.log(y)
+                x = new Date(rows[index].getElementsByTagName("td")[4].innerText);
+                y = new Date(rows[index + 1].getElementsByTagName("td")[4].innerText);
                 if(sortAttribute == "up") {
                     if (x < y) {
                         shouldSwitch = true;
