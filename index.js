@@ -3,6 +3,8 @@ window.addEventListener('DOMContentLoaded', function(){
     const dataForm = document.getElementById('dataForm');
     const dataTable = document.getElementById('dataTable');
     const searchBar = document.getElementById('searchBar');
+    const sortButton = document.getElementById("sortButton");
+    const filter = document.getElementById('filterGender');
     const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
     let employees = [];
     var employeesList=[];
@@ -91,6 +93,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 const img = document.createElement('img');
                 
             }
+            /*
             if(key == "birthdate"){
                 const date= data[key];
                 const splittedDate = date.split("-")
@@ -107,6 +110,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 finalDate = day + " " + months[month-1] + " " + year;   
                 cell.innerText = finalDate;
             }   
+            */
             else{
                 cell.innerText = data[key];
             }            
@@ -154,6 +158,62 @@ window.addEventListener('DOMContentLoaded', function(){
             // appendDataToTable(dataTable, data);
             addEmployee();
             employees = [...employees,data];
+        }
+    })
+
+    sortButton.addEventListener('click', (e) =>{
+        var sortAttribute = document.getElementById("sortButton").getAttribute("sort");
+        if(sortAttribute == "up") {
+            document.getElementById("sortButton").setAttribute("sort", "down");
+        }else {
+            document.getElementById("sortButton").setAttribute("sort", "up");
+        }
+    
+        var rows, switching, index, x, y, shouldSwitch;
+        switching = true;
+    
+        while (switching) {
+            switching = false;
+            rows = dataTable.rows;
+            for (index = 1; index < (rows.length - 1); index++) {
+                shouldSwitch = false;
+                x = new Date(rows[index].getElementsByTagName("td")[5].innerText);
+                console.log(x)
+                y = new Date(rows[index + 1].getElementsByTagName("td")[5].innerText);
+                console.log(y)
+                if(sortAttribute == "up") {
+                    if (x < y) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if(sortAttribute == "down") {
+                    if (x > y) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[index].parentNode.insertBefore(rows[index + 1], rows[index]);
+                switching = true;
+            }
+        }
+    })
+
+    filter.addEventListener('change', (e) =>{
+        let filter = document.getElementById('filterGender').value;
+        tr = dataTable.getElementsByTagName("tr");
+      
+        for (index = 1; index < tr.length; index++) {
+          td = tr[index].getElementsByTagName("td")[3];
+          if (td) {
+            genderValue = (td.textContent || td.innerText).toLowerCase();
+            if (genderValue == filter.toLowerCase() || filter.toLowerCase() == "none") {
+                tr[index].style.display = "";
+            }else {
+              tr[index].style.display = "none";
+            }
+          }
         }
     })
 })
