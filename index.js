@@ -93,13 +93,13 @@ window.addEventListener('DOMContentLoaded', function(){
                 const img = document.createElement('img');
                 
             }
-            /*
             if(key == "birthdate"){
                 const date= data[key];
                 const splittedDate = date.split("-")
                 const year = splittedDate[0];
                 const month = splittedDate[1];
-                const day = splittedDate[2];
+                const day = splittedDate[2].split("T")[0];
+                console.log(day)
                 var finalDate="";
 
                 if(month.startsWith("0"))
@@ -110,7 +110,6 @@ window.addEventListener('DOMContentLoaded', function(){
                 finalDate = day + " " + months[month-1] + " " + year;   
                 cell.innerText = finalDate;
             }   
-            */
             else{
                 cell.innerText = data[key];
             }            
